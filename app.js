@@ -3,5 +3,16 @@ const app = express()
 
 const port = 3000
 
-app.listen(port , console.log(`Server is listening on ${port}. . . .`))
+const start = async() => {
+    try {
+        app.listen(port , console.log(`Server is listening on ${port}. . . .`))    
+    } catch (error) {
+        console.log(error);    
+    }
+}
+
+start()
+
+
+
 
