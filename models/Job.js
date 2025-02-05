@@ -1,14 +1,14 @@
 const mongoose = require('mongoose')
 
 const JobSchema = new mongoose.Schema({
-    name : {
+    company : {
         type : String , 
-        require : [true , 'Please Provide Name'],
+        required : [true , 'Please Provide Name'],
         maxLength : 50
     },
     position : {
         type : String , 
-        require : [true , 'Please Provide Position'],
+        required : [true , 'Please Provide Position'],
         maxLength : 100
     },
     status : {
@@ -19,8 +19,8 @@ const JobSchema = new mongoose.Schema({
     createdBy : {
         type : mongoose.Types.ObjectId,
         ref : 'User',
-        require : [true , 'Please Provide User']
+        required : [true , 'Please Provide User']
     }
-})
+},{timestamps : true})
 
 module.exports = mongoose.model('Job' , JobSchema)
