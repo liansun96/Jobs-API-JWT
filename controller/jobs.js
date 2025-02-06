@@ -1,12 +1,22 @@
 const { StatusCodes } = require("http-status-codes")
 const Job = require("../models/Job")
+const  jwt  = require("jsonwebtoken")
 
 const getAllJobs = async (req , res) => {
-    res.send('Get All Jobs')
+    const jobs = await Job.find({createdBy : req.user.userId}).sort('-createdAt')
+    
+    res.status(StatusCodes.OK).json({nbHits : jobs.length , jobs})
 }
 
 const getJob = async (req , res) => {
-    res.send('Get Single Job')
+    const {user , params} = req
+    console.log(user , params);
+
+    const job = await Job.findById({_id : params.id , createdBy : user.userId})
+    console.log(job);
+    
+   
+    res.status(StatusCodes.OK).json({job})
 }
 
 const createJob= async(req, res) => {    
