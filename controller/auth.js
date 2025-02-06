@@ -11,7 +11,7 @@ const register = async(req , res) => {
 
 const login = async(req , res) => {
     const {email , password } = req.body
-    console.log(email , password);
+    // console.log(email , password);
     
     if(!email || !password){
         throw new BadRequestError('Please Provide Email & Password')
@@ -19,7 +19,7 @@ const login = async(req , res) => {
 
     const user = await User.findOne({email})
 
-    console.log(user);    
+    // console.log(user);    
 
     if(!user){
         throw new UnauthenticatedError('Invilid email , Please Provide Valid Email')
@@ -30,7 +30,7 @@ const login = async(req , res) => {
         throw new UnauthenticatedError('Invilid Passwrod , Please Provide Correct Password')
     }
     
-    console.log(isPasswordCorrect)
+    // console.log(isPasswordCorrect)
 
     const token = user.createJWT()
 
