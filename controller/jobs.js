@@ -2,6 +2,7 @@ const { StatusCodes } = require("http-status-codes")
 const Job = require("../models/Job")
 const  jwt  = require("jsonwebtoken")
 const NotFoundError = require("../errors/not-found")
+const BadRequestError = require("../errors/bad-request")
 
 const getAllJobs = async (req , res) => {
     const jobs = await Job.find({createdBy : req.user.userId}).sort('-createdAt')
@@ -30,7 +31,12 @@ const createJob= async(req, res) => {
 }
 
 const updateJob = async(req , res) => {
-    const {user : {userId} , params : {id : jobId}} = req
+    const {user : {userId} , params : {id : jobId} , body : {company , position}} = req
+
+    console.log(company , position);    
+    if(!company || !position ){
+        throw new BadRequestError('Company and Position Field cannot be empty!')
+    }
 
     const job = await Job.findByIdAndUpdate(
         {_id : jobId , createdBy : userId},
