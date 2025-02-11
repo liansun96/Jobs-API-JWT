@@ -13,9 +13,8 @@ const getAllJobs = async (req , res) => {
 const getJob = async (req , res) => {
       
     const {user : {userId} , params : {id : jobId}} = req
-    // console.log(userId , jobId);    
-    const job = await Job.findById({_id : jobId , createdBy : userId})
 
+    const job = await Job.findById({_id : jobId , createdBy : userId})
     if(!job){
         throw new NotFoundError(`No Job Wiht id : ${jobId}`)
     }
@@ -33,7 +32,6 @@ const createJob= async(req, res) => {
 const updateJob = async(req , res) => {
     const {user : {userId} , params : {id : jobId} , body : {company , position}} = req
 
-    console.log(company , position);    
     if(!company || !position ){
         throw new BadRequestError('Company and Position Field cannot be empty!')
     }
@@ -55,7 +53,6 @@ const deleteJob = async(req , res) => {
     const {user : {useId} , params : {id : jobId}} = req
 
     const job = await Job.findByIdAndDelete({_id : jobId})
-
     if(!job) {
         throw new NotFoundError(`No Job Wiht Id : ${jobId}`)
     }
