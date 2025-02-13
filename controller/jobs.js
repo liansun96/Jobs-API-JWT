@@ -10,17 +10,17 @@ const getAllJobs = async (req , res) => {
     res.status(StatusCodes.OK).json({nbHits : jobs.length , jobs})
 }
 
-// const getJob = async (req , res) => {
+const getJob = async (req , res) => {
       
-//     const {user : {userId} , params : {id : jobId}} = req
+    const {user : {userId} , params : {id : jobId}} = req
 
-//     const job = await Job.findById({_id : jobId , createdBy : userId})
-//     if(!job){
-//         throw new NotFoundError(`No Job Wiht id : ${jobId}`)
-//     }
+    const job = await Job.findById({_id : jobId , createdBy : userId})
+    if(!job){
+        throw new NotFoundError(`No Job Wiht id : ${jobId}`)
+    }
 
-//     res.status(StatusCodes.OK).json({job})
-// }
+    res.status(StatusCodes.OK).json({job})
+}
 
 const createJob= async(req, res) => {    
     req.body.createdBy = req.user.userId
