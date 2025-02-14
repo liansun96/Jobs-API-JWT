@@ -60,15 +60,4 @@ const deleteJob = async(req , res) => {
     res.status(StatusCodes.OK).json({job})
 }
 
-const removeJob = async (req , res) => {
-    const {user : {userId} , params : {id : jobId}} = req
-
-    const job = await Job.findByIdAndDelete({_id : jobId})
-    if(!job){
-        throw new NotFoundError(`No Task With id : ${jobId}`)
-    }
-
-    res.status(StatusCodes.OK).json({job})
-}
-
 module.exports = {getAllJobs , getJob , createJob , updateJob , deleteJob }
