@@ -5,6 +5,7 @@ const UnauthenticatedError = require("../errors/unauthenticated")
 
 const register = async(req , res) => {
     const user = await User.create({...req.body})
+    console.log(req.body)
     const token = user.createJWT()
     res.status(StatusCodes.CREATED).json({user : {name : user.name } , token})
 }
